@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ClinAgenda.src.Core.Entities
+namespace ClinAgenda
 {
-public class Appointment
+    public class Appointment
     {
         public required int Id { get; set; }
         public required int PatientId { get; set; }
