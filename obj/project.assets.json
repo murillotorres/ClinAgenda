@@ -85,7 +85,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.OpenApi/8.0.14": {
+      "Microsoft.AspNetCore.OpenApi/8.0.12": {
         "type": "package",
         "dependencies": {
           "Microsoft.OpenApi": "1.4.3"
@@ -723,10 +723,10 @@
         "lib/netstandard2.1/K4os.Hash.xxHash.xml"
       ]
     },
-    "Microsoft.AspNetCore.OpenApi/8.0.14": {
-      "sha512": "Sar0lozRpDmlAfzRNHtr8hC/6ImdcZMYA1JLoEaW0bmRvQdPpsN0orHYGsY+/LYS3q603ZomxsYpXj1Ow+sBTA==",
+    "Microsoft.AspNetCore.OpenApi/8.0.12": {
+      "sha512": "ethhl6H45KrU7d8FRFBKAaJpMKdy2nJwG7j3XSt1b4o+H6saDr+2NQpEMIB1QTHxsrB2Un4C+j01PT5b75kOYQ==",
       "type": "package",
-      "path": "microsoft.aspnetcore.openapi/8.0.14",
+      "path": "microsoft.aspnetcore.openapi/8.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -734,7 +734,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net8.0/Microsoft.AspNetCore.OpenApi.dll",
         "lib/net8.0/Microsoft.AspNetCore.OpenApi.xml",
-        "microsoft.aspnetcore.openapi.8.0.14.nupkg.sha512",
+        "microsoft.aspnetcore.openapi.8.0.12.nupkg.sha512",
         "microsoft.aspnetcore.openapi.nuspec"
       ]
     },
@@ -2106,25 +2106,25 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Dapper >= 2.1.66",
-      "Microsoft.AspNetCore.OpenApi >= 8.0.14",
+      "Microsoft.AspNetCore.OpenApi >= 8.0.12",
       "MySql.Data >= 9.2.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\muril\\.nuget\\packages\\": {}
+    "/Users/maira/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\ClinAgenda\\ClinAgenda\\ClinAgenda.csproj",
+      "projectUniqueName": "/Users/maira/Projects/Demo/ClinAgenda/ClinAgenda.csproj",
       "projectName": "ClinAgenda",
-      "projectPath": "C:\\ClinAgenda\\ClinAgenda\\ClinAgenda.csproj",
-      "packagesPath": "C:\\Users\\muril\\.nuget\\packages\\",
-      "outputPath": "C:\\ClinAgenda\\ClinAgenda\\obj\\",
+      "projectPath": "/Users/maira/Projects/Demo/ClinAgenda/ClinAgenda.csproj",
+      "packagesPath": "/Users/maira/.nuget/packages/",
+      "outputPath": "/Users/maira/Projects/Demo/ClinAgenda/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\muril\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/maira/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2147,8 +2147,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.200"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -2160,7 +2159,7 @@
           },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
-            "version": "[8.0.14, )"
+            "version": "[8.0.12, )"
           },
           "MySql.Data": {
             "target": "Package",
@@ -2190,7 +2189,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.405/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

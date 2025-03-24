@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ClinAgenda\\ClinAgenda\\ClinAgenda.csproj": {}
+    "/Users/maira/Projects/Demo/ClinAgenda/ClinAgenda.csproj": {}
   },
   "projects": {
-    "C:\\ClinAgenda\\ClinAgenda\\ClinAgenda.csproj": {
+    "/Users/maira/Projects/Demo/ClinAgenda/ClinAgenda.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ClinAgenda\\ClinAgenda\\ClinAgenda.csproj",
+        "projectUniqueName": "/Users/maira/Projects/Demo/ClinAgenda/ClinAgenda.csproj",
         "projectName": "ClinAgenda",
-        "projectPath": "C:\\ClinAgenda\\ClinAgenda\\ClinAgenda.csproj",
-        "packagesPath": "C:\\Users\\muril\\.nuget\\packages\\",
-        "outputPath": "C:\\ClinAgenda\\ClinAgenda\\obj\\",
+        "projectPath": "/Users/maira/Projects/Demo/ClinAgenda/ClinAgenda.csproj",
+        "packagesPath": "/Users/maira/.nuget/packages/",
+        "outputPath": "/Users/maira/Projects/Demo/ClinAgenda/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\muril\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/maira/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,8 +37,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -50,7 +49,7 @@
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[8.0.14, )"
+              "version": "[8.0.12, )"
             },
             "MySql.Data": {
               "target": "Package",
@@ -80,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.405/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
