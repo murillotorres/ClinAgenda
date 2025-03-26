@@ -4,22 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ClinAgenda.src.Application.DTOs.Patient
+namespace ClinAgenda.src.Application.DTOs.Specialty
 {
-    public class PatientInsertDTO
+    public class SpecialtyInsertDTO
     {
-        [Required(ErrorMessage = "O Nome do Paciente é obrigatório", AllowEmptyStrings = false)]
-        public required string @Name { get; set; }
-        [Required(ErrorMessage = "O Telefone do Paciente é obrigatório", AllowEmptyStrings = false)]
-
-        public required string PhoneNumber { get; set; }
-        [Required(ErrorMessage = "O Documento do Paciente é obrigatório", AllowEmptyStrings = false)]
-        public required string DocumentNumber { get; set; }
-        [Required(ErrorMessage = "O Status Paciente é obrigatório", AllowEmptyStrings = false)]
-
-        public required int StatusId { get; set; }
-        [Required(ErrorMessage = "O Dia de nascimento do Paciente é obrigatório", AllowEmptyStrings = false)]
-
-        public required string BirthDate { get; set; }
+        [Required(ErrorMessage = "O Nome da especialidade é obrigatório", AllowEmptyStrings = false)]
+        public string @Name { get; set; }
+        [Required(ErrorMessage = "O tempo de duração da especialidade é obrigatório", AllowEmptyStrings = false)]
+        public int ScheduleDuration { get; set; }
     }
 }
