@@ -2117,11 +2117,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\clinagenda\\MairaDemo\\ClinAgendaDemo\\ClinAgenda.csproj",
+      "projectUniqueName": "C:\\clinagenda\\ClinAgenda\\ClinAgenda.csproj",
       "projectName": "ClinAgenda",
-      "projectPath": "C:\\clinagenda\\MairaDemo\\ClinAgendaDemo\\ClinAgenda.csproj",
+      "projectPath": "C:\\clinagenda\\ClinAgenda\\ClinAgenda.csproj",
       "packagesPath": "C:\\Users\\muril\\.nuget\\packages\\",
-      "outputPath": "C:\\clinagenda\\MairaDemo\\ClinAgendaDemo\\obj\\",
+      "outputPath": "C:\\clinagenda\\ClinAgenda\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\muril\\AppData\\Roaming\\NuGet\\NuGet.Config"
