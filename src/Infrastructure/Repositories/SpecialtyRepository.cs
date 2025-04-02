@@ -16,9 +16,8 @@ namespace ClinAgenda.src.Infrastructure.Repositories
 
         public SpecialtyRepository(MySqlConnection connection)
         {
-            _connection = connection ?? throw new ArgumentNullException(nameof(connection));
+            _connection = connection;
         }
-
         public async Task<SpecialtyDTO?> GetByIdAsync(int id)
         {
             const string query = @"
@@ -30,15 +29,21 @@ namespace ClinAgenda.src.Infrastructure.Repositories
                 WHERE ID = @Id";
 
             var specialty = await _connection.QueryFirstOrDefaultAsync<SpecialtyDTO>(query, new { Id = id });
+
             return specialty;
         }
-
-        public async Task<(int total, IEnumerable<SpecialtyDTO> specialtys)> GetAllAsync(int? itemsPerPage, int? page)
+        public async Task<(int total, IEnumerable<SpecialtyDTO> specialtys)> GetAllAsync(string? name, int? itemsPerPage, int? page)
         {
             var queryBase = new StringBuilder(@"
                 FROM SPECIALTY S WHERE 1 = 1");
 
             var parameters = new DynamicParameters();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                queryBase.Append(" AND S.NAME LIKE @Name");
+                parameters.Add("Name", $"%{name}%");
+            }
 
             var countQuery = $"SELECT COUNT(DISTINCT S.ID) {queryBase}";
             int total = await _connection.ExecuteScalarAsync<int>(countQuery, parameters);
@@ -50,13 +55,13 @@ namespace ClinAgenda.src.Infrastructure.Repositories
             {queryBase}
             LIMIT @Limit OFFSET @Offset";
 
-            parameters.Add("Limit", itemsPerPage ?? 10); // Se null, assume 10 por página
-            parameters.Add("Offset", ((page ?? 1) - 1) * (itemsPerPage ?? 10)); // Ajusta o offset
+            parameters.Add("Limit", itemsPerPage);
+            parameters.Add("Offset", (page - 1) * itemsPerPage);
 
             var specialtys = await _connection.QueryAsync<SpecialtyDTO>(dataQuery, parameters);
+
             return (total, specialtys);
         }
-
         public async Task<int> InsertSpecialtyAsync(SpecialtyInsertDTO specialtyInsertDTO)
         {
             string query = @"
@@ -65,7 +70,6 @@ namespace ClinAgenda.src.Infrastructure.Repositories
             SELECT LAST_INSERT_ID();";
             return await _connection.ExecuteScalarAsync<int>(query, specialtyInsertDTO);
         }
-
         public async Task<int> DeleteSpecialtyAsync(int id)
         {
             string query = @"
@@ -75,9 +79,9 @@ namespace ClinAgenda.src.Infrastructure.Repositories
             var parameters = new { Id = id };
 
             var rowsAffected = await _connection.ExecuteAsync(query, parameters);
+
             return rowsAffected;
         }
-
         public async Task<IEnumerable<SpecialtyDTO>> GetSpecialtiesByIds(List<int> specialtiesId)
         {
             var query = @"
@@ -93,4 +97,5 @@ namespace ClinAgenda.src.Infrastructure.Repositories
             return await _connection.QueryAsync<SpecialtyDTO>(query, parameters);
         }
     }
+
 }

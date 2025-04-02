@@ -15,7 +15,7 @@ namespace ClinAgenda.src.Application.UseCases
         {
             _patientRepository = patientRepository;
         }
-        public async Task<object> GetPatientsAsync(string? name, string? documentNumber, int? statusId, int itemsPerPage, int page)
+        public async Task<PatientResponseDTO> GetPatientsAsync(string? name, string? documentNumber, int? statusId, int itemsPerPage, int page)
         {
             var (total, rawData) = await _patientRepository.GetPatientsAsync(name, documentNumber, statusId, itemsPerPage, page);
 
@@ -35,7 +35,11 @@ namespace ClinAgenda.src.Application.UseCases
                 })
                 .ToList();
 
-            return new { total, items = patients };
+            return new PatientResponseDTO
+            {
+                Total = total,
+                Items = patients
+            };
         }
         public async Task<int> CreatePatientAsync(PatientInsertDTO patientDTO)
         {
@@ -79,9 +83,13 @@ namespace ClinAgenda.src.Application.UseCases
                               }
                           })
                           .ToList();
-                          
+
             return patients;
         }
-
+        public async Task<bool> DeletPatientByIdAsync(int id)
+        {
+            var rowsAffected = await _patientRepository.DeleteByPatientIdAsync(id);
+            return rowsAffected > 0;
+        }
     }
 }

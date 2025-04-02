@@ -21,19 +21,19 @@ namespace ClinAgenda.src.Application.UseCases
             _specialtyRepository = specialtyRepository;
         }
 
-        public async Task<object> GetDoctorsAsync(string? name, int? specialtyId, int? statusId, int itemsPerPage, int page)
+        public async Task<DoctorResponseDTO> GetDoctorsAsync(string? name, int? specialtyId, int? statusId, int itemsPerPage, int page)
         {
             int offset = (page - 1) * itemsPerPage;
 
-            var doctors = (await _doctorRepository.GetDoctorsAsync(name, specialtyId, statusId, offset, itemsPerPage)).ToList();
+            var rawData = await _doctorRepository.GetDoctorsAsync(name, specialtyId, statusId, offset, itemsPerPage);
 
-            if (!doctors.Any())
-                return new { total = 0, items = new List<DoctorListReturnDTO>() };
+            if (!rawData.doctors.Any())
+                return new DoctorResponseDTO { Total = 0, Items = new List<DoctorListReturnDTO>() };
 
-            var doctorIds = doctors.Select(d => d.Id).ToArray();
+            var doctorIds = rawData.doctors.Select(d => d.Id).ToArray();
             var specialties = (await _doctorRepository.GetDoctorSpecialtiesAsync(doctorIds)).ToList();
 
-            var result = doctors.Select(d => new DoctorListReturnDTO
+            var result = rawData.doctors.Select(d => new DoctorListReturnDTO
             {
                 Id = d.Id,
                 Name = d.Name,
@@ -42,21 +42,20 @@ namespace ClinAgenda.src.Application.UseCases
                     Id = d.StatusId,
                     Name = d.StatusName
                 },
-                Specialty = specialties
-            .Where(s => s.DoctorId == d.Id)
-            .Select(s => new SpecialtyDTO
-            {
-                Id = s.SpecialtyId,
-                Name = s.SpecialtyName,
-                ScheduleDuration = s.ScheduleDuration
-            })
-            .ToList()
+                Specialty = specialties.Where(s => s.DoctorId == d.Id)
+                    .Select(s => new SpecialtyDTO
+                    {
+                        Id = s.SpecialtyId,
+                        Name = s.SpecialtyName,
+                        ScheduleDuration = s.ScheduleDuration
+                    }
+                    ).ToList()
             });
 
-            return new
+            return new DoctorResponseDTO
             {
-                total = result.Count(),
-                items = result.ToList()
+                Total = rawData.total,
+                Items = result.ToList()
             };
         }
         public async Task<int> CreateDoctorAsync(DoctorInsertDTO doctorDto)
@@ -73,40 +72,36 @@ namespace ClinAgenda.src.Application.UseCases
 
             return newDoctorId;
         }
-        public async Task<object> GetDoctorByIdAsync(int id)
+        public async Task<DoctorListReturnDTO> GetDoctorByIdAsync(int id)
         {
             var rawData = await _doctorRepository.GetByIdAsync(id);
 
-            var result = new
+            List<DoctorListReturnDTO> infoDoctor = new List<DoctorListReturnDTO>();
+
+            foreach (var group in rawData.GroupBy(item => item.Id))
             {
-                item = rawData
-                    .GroupBy(item => item.Id)
-                    .Select(group => new
+                DoctorListReturnDTO doctor = new DoctorListReturnDTO
+                {
+                    Id = group.Key,
+                    Name = group.First().Name,
+                    Specialty = group.Select(s => new SpecialtyDTO
                     {
-                        id = group.Key,
-                        name = group.First().Name,
-                        specialty = group
-                            .Select(s => new
-                            {
-                                id = s.SpecialtyId,
-                                name = s.SpecialtyName
-                            })
-                            .ToList(),
-                        status = new
-                        {
-                            id = group.First().StatusId,
-                            name = group.First().StatusName
-                        }
-                    })
-                .ToList()
-            };
+                        Id = s.SpecialtyId,
+                        Name = s.SpecialtyName
+                    }).ToList(),
+                    Status = new StatusDTO
+                    {
+                        Id = group.First().StatusId,
+                        Name = group.First().StatusName
+                    }
+                };
 
-            return new
-            {
-                item = result.item
-            };
+                infoDoctor.Add(doctor);
+            }
 
+            return infoDoctor.First();
         }
+
         public async Task<bool> UpdateDoctorAsync(int id, DoctorInsertDTO doctorDto)
         {
             var doctorToUpdate = new DoctorDTO
@@ -129,6 +124,11 @@ namespace ClinAgenda.src.Application.UseCases
             await _doctorSpecialtyRepository.InsertAsync(doctorSpecialties);
 
             return true;
+        }
+        public async Task<bool> DeleteDoctorByIdAsync(int id)
+        {
+            var rowsAffected = await _doctorRepository.DeleteByDoctorIdAsync(id);
+            return rowsAffected > 0;
         }
     }
 
